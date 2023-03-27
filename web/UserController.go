@@ -4,17 +4,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"java-to-go/entity"
 	"java-to-go/service"
-	"log"
 )
 
-func CreatePerson(services *service.Service) fiber.Handler {
+func CreatePerson(services *service.PersonServ) fiber.Handler {
 
 	return func(c *fiber.Ctx) error {
 		type request struct {
 			entity.Person
 		}
 		req := &request{}
-		log.Printf("Тело запроса %s", req)
 		if err := c.BodyParser(&req); err != nil {
 			return c.Status(400).JSON(err.Error())
 		}
@@ -32,7 +30,7 @@ func CreatePerson(services *service.Service) fiber.Handler {
 	}
 }
 
-func GetPersonById(services *service.Service) fiber.Handler {
+func GetPersonById(services *service.PersonServ) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Params("id")
 		person, err := services.GetPersonById(id)
@@ -43,14 +41,13 @@ func GetPersonById(services *service.Service) fiber.Handler {
 	}
 }
 
-func UpdatePersonById(services *service.Service) fiber.Handler {
+func UpdatePersonById(services *service.PersonServ) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Params("id")
 		type request struct {
 			entity.Person
 		}
 		req := &request{}
-		log.Print(req)
 		if err := c.BodyParser(&req); err != nil {
 			return c.Status(400).JSON(err.Error())
 		}
@@ -68,10 +65,10 @@ func UpdatePersonById(services *service.Service) fiber.Handler {
 	}
 }
 
-func DeletePersonById(services *service.Service) fiber.Handler {
+func DeletePersonById(services *service.PersonServ) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Params("id")
-		err := services.DeletePersonById(id)
+		_, err := services.DeletePersonById(id)
 		if err != nil {
 			return c.Status(422).JSON(err.Error())
 		}

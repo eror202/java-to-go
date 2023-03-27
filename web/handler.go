@@ -8,15 +8,23 @@ import (
 )
 
 type Handler struct {
-	services *service.Service
+	services *service.PersonService
 }
 
 func UserRouter(app fiber.Router, db *sqlx.DB) {
-	repo := repository.NewRepository(db)
-	services := service.NewService(repo)
+	personRepo := repository.NewPersRep(db)
+	personServices := service.NewPersService(personRepo)
 
-	app.Post("/createUser", CreatePerson(services))
-	app.Get("/getUser/:id", GetPersonById(services))
-	app.Post("/updateUser/:id", UpdatePersonById(services))
-	app.Get("deleteUser/:id", DeletePersonById(services))
+	app.Post("/createUser", CreatePerson(personServices))
+	app.Get("/getUser/:id", GetPersonById(personServices))
+	app.Post("/updateUser/:id", UpdatePersonById(personServices))
+	app.Get("deleteUser/:id", DeletePersonById(personServices))
+
+	bookRepo := repository.NewBookRep(db)
+	bookServices := service.NewBookServ(bookRepo)
+
+	app.Post("/createBook", CreateBook(bookServices))
+	app.Get("/getUser/:id", GetBookById(bookServices))
+	app.Post("/updateUser/:id", UpdateBook(bookServices))
+	app.Get("deleteUser/:id", DeleteBookById(bookServices))
 }

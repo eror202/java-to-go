@@ -9,15 +9,15 @@ type PersonService interface {
 	CreatePerson(person *entity.Person) (string, error)
 	UpdatePerson(person *entity.Person, id string) (*entity.Person, error)
 	GetPersonById(id string) (*entity.Person, error)
-	DeletePersonById(id string) error
+	DeletePersonById(id string) (string, error)
 }
 
-type Service struct {
+type PersonServ struct {
 	PersonService
 }
 
-func NewService(repo *repository.Repository) *Service {
-	return &Service{
+func NewPersService(repo *repository.PersonRep) *PersonServ {
+	return &PersonServ{
 		PersonService: NewPersonService(repo.PersonRepository),
 	}
 }

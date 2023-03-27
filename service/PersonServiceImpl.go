@@ -25,6 +25,6 @@ func (p PersonServiceImpl) GetPersonById(id string) (*entity.Person, error) {
 	return p.repo.GetPersonById(id)
 }
 
-func (p PersonServiceImpl) DeletePersonById(id string) error {
+func (p PersonServiceImpl) DeletePersonById(id string) (string, error) {
 	return p.repo.DeletePersonById(id)
 }

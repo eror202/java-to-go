@@ -44,7 +44,7 @@ func (r *PersonRepPostgres) DeletePersonById(id string) (string, error) {
 	if err := r.db.Query(query); err != nil {
 
 	}
-	return err
+	return "", err
 }
 
 func NewPersonRepPostgres(db *sqlx.DB) *PersonRepPostgres {

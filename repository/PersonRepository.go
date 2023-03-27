@@ -9,15 +9,15 @@ type PersonRepository interface {
 	CreatePerson(person *entity.Person) (string, error)
 	UpdatePerson(person *entity.Person, id string) (*entity.Person, error)
 	GetPersonById(id string) (*entity.Person, error)
-	DeletePersonById(id string) error
+	DeletePersonById(id string) (string, error)
 }
 
-type Repository struct {
+type PersonRep struct {
 	PersonRepository
 }
 
-func NewRepository(db *sqlx.DB) *Repository {
-	return &Repository{
+func NewPersRep(db *sqlx.DB) *PersonRep {
+	return &PersonRep{
 		PersonRepository: NewPersonRepPostgres(db),
 	}
 }

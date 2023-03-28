@@ -5,7 +5,6 @@ type Book struct {
 	Title     string `json:"title" db:"title"`
 	Author    string `json:"author" db:"author"`
 	PageCount string `json:"pageCount" db:"pageCount"`
-	Person    Person `json:"person" db:"person"`
 }
 
 func (p *Book) SetTitle(title string) {
@@ -30,12 +29,4 @@ func (p *Book) SetPageCount(pageCount string) {
 
 func (p *Book) GetPageCount() string {
 	return p.PageCount
-}
-
-func (p *Book) SetPerson(person Person) {
-	p.Person = person
-}
-
-func (p *Book) GetPerson() Person {
-	return p.Person
 }

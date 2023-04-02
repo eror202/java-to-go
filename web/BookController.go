@@ -6,7 +6,7 @@ import (
 	"java-to-go/service"
 )
 
-func CreateBook(services *service.BookServ) fiber.Handler {
+func CreateBook(services *service.BookServiceImpl) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		type request struct {
 			entity.Book
@@ -28,7 +28,7 @@ func CreateBook(services *service.BookServ) fiber.Handler {
 	}
 }
 
-func UpdateBook(services *service.BookServ) fiber.Handler {
+func UpdateBook(services *service.BookServiceImpl) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Params("id")
 		type request struct {
@@ -51,7 +51,7 @@ func UpdateBook(services *service.BookServ) fiber.Handler {
 	}
 }
 
-func GetBookById(services *service.BookServ) fiber.Handler {
+func GetBookById(services *service.BookServiceImpl) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Params("id")
 		book, err := services.GetBookById(id)
@@ -62,7 +62,7 @@ func GetBookById(services *service.BookServ) fiber.Handler {
 	}
 }
 
-func DeleteBookById(services *service.BookServ) fiber.Handler {
+func DeleteBookById(services *service.BookServiceImpl) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Params("id")
 		_, err := services.DeleteBookById(id)
